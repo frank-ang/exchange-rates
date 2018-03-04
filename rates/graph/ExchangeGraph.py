@@ -1,8 +1,7 @@
 """
 Implementation as a modified Floyd-Warshall algorithm to find:
- * the most favorable exchange rate,
+ * the most favorable exchange rate, between any 2 (exchange,currency) pairs.
  * and the sequence of conversions to attain that rate,
-between any 2 (exchange,currency) pairs.
 
 :return:
    rates 2-dimensional dictionary of optimal rates

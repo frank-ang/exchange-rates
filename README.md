@@ -1,7 +1,100 @@
 # Exchange Rate
-a solution to the Exchange Rate Path Problem.
+Solution to the Exchange Rate Path Problem.
 
-##Problem (Re)statement:
+This is an implementation of a modified Floyd-Warshall algorithm to find:
+ * the most favorable exchange rate, between any 2 (exchange,currency) pairs. 
+ * and the sequence of conversions to attain that rate,
+
+## Running the program 
+Simply run using python3.  
+```bash
+python3 main.py
+```
+Input data can be from pipes, file redirection, or interactive.
+
+To stop the program, send EOF character.
+
+
+## Testing
+### Unit Tests
+```bash
+python3 -m rates.test.test_ExchangeGraph
+```
+
+### Command line test with file input
+```
+python3 main.py < rates/test/input1.txt
+cat rates/test/input2.txt | python3 main.py 
+```
+
+### Sample Output
+Run the Unit Tests!
+```bash
+$ python3 -m rates.test.test_ExchangeGraph
+BEST_RATES_BEGIN
+KRAKEN USD GDAX BTC 0.0009
+KRAKEN, USD
+KRAKEN, BTC
+GDAX, BTC
+BEST_RATES_END
+
+.BEST_RATES_BEGIN
+GDAX USD KRAKEN BTC 0.0009
+GDAX, USD
+KRAKEN, USD
+KRAKEN, BTC
+BEST_RATES_END
+
+.BEST_RATES_BEGIN
+KRAKEN USD GDAX BTC 0.0009
+KRAKEN, USD
+KRAKEN, BTC
+GDAX, BTC
+BEST_RATES_END
+
+.BEST_RATES_BEGIN
+GDAX USD KRAKEN BTC 0.0009
+GDAX, USD
+KRAKEN, USD
+KRAKEN, BTC
+BEST_RATES_END
+
+BEST_RATES_BEGIN
+KRAKEN USD GDAX BTC 0.0007
+KRAKEN, USD
+GDAX, USD
+GDAX, BTC
+BEST_RATES_END
+
+.
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+OK
+```
+Run the Integration Test on command line! 
+
+Redirect input instructions into the program from a data file.
+```bash
+$ python3 main.py < rates/test/input1.txt 
+Exchange Rate Optimization Pathfinder solution.
+Copyright © 2018 Frank Ang https://www.linkedin.com/in/frankang/
+--------------------------------------------------
+BEST_RATES_BEGIN
+KRAKEN USD GDAX BTC 0.0009
+KRAKEN, USD
+KRAKEN, BTC
+GDAX, BTC
+BEST_RATES_END
+End of program. Thank you for trading.
+```
+
+
+
+## Exchange Rate Path Problem
+The following section was excerpted from the Technical Exercise document.
+Reproduced here for reference.
+
 ### Input Data
 Receive a stream of price updates and exchange rate requests on stdin.
 Each price update or exchange rate request will be separated by a newline.
@@ -46,92 +139,3 @@ are created the first time a price update appears that references them.
 When you receive an exchange rate request, your job is to return the best possible
 exchange rate as well as the trades and transfers needed to achieve that rate.
 
-### Output Format
-For each exchange rate request line you receive on stdin, you should output to
-stdout:
-
-```
-BEST_RATES_BEGIN <source_exchange> <source_currency> <destination_exchange>
-<destination_currency> <rate>
-<source_exchange, source_currency>
-<exchange, currency>
-<exchange, currency>
-...
-<destination_exchange, destination_currency>
-BEST_RATES_END
-```
-
-## Testing
-### Integration Tests
-```bash
-python3 -m rates.test.test_ExchangeGraph
-```
-
-### Command line test with file input
-```
-python3 main.py < rates/test/input1.txt
-python3 main.py < rates/test/input2.txt
-```
-
-### Sample Output
-Run the Unit Test!
-```bash
-$ python3 -m rates.test.test_ExchangeGraph
-BEST_RATES_BEGIN
-KRAKEN USD GDAX BTC 0.0009
-KRAKEN, USD
-KRAKEN, BTC
-GDAX, BTC
-BEST_RATES_END
-
-.BEST_RATES_BEGIN
-GDAX USD KRAKEN BTC 0.0009
-GDAX, USD
-KRAKEN, USD
-KRAKEN, BTC
-BEST_RATES_END
-
-.BEST_RATES_BEGIN
-KRAKEN USD GDAX BTC 0.0009
-KRAKEN, USD
-KRAKEN, BTC
-GDAX, BTC
-BEST_RATES_END
-
-.BEST_RATES_BEGIN
-GDAX USD KRAKEN BTC 0.0009
-GDAX, USD
-KRAKEN, USD
-KRAKEN, BTC
-BEST_RATES_END
-
-BEST_RATES_BEGIN
-KRAKEN USD GDAX BTC 0.0007
-KRAKEN, USD
-GDAX, USD
-GDAX, BTC
-BEST_RATES_END
-
-.
-----------------------------------------------------------------------
-Ran 4 tests in 0.003s
-
-OK
-```
-
-Run the Integration Test on command line! 
-
-Redirect input instructions into the program from a data file.
-```bash
-$ python3 main.py < rates/test/input1.txt 
-Exchange Rate Optimization Pathfinder solution.
-Copyright © 2018 Frank Ang https://www.linkedin.com/in/frankang/
---------------------------------------------------
-BEST_RATES_BEGIN
-KRAKEN USD GDAX BTC 0.0009
-KRAKEN, USD
-KRAKEN, BTC
-GDAX, BTC
-BEST_RATES_END
-End of program. Thank you for trading.
-```
